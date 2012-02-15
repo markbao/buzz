@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 var net = require('net');
 
 var args = process.argv.splice(2);
