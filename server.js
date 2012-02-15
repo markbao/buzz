@@ -65,7 +65,7 @@ Buzz.prototype.monitorClients = function () {
 
 Buzz.prototype.broadcastClient = function (name) {
   var self = this;
-  self.clientAd = mdns.createAdvertisement(mdns.tcp('http'), 7331);
+  self.clientAd = mdns.createAdvertisement(mdns.tcp('http'), 7331, {name: name});
   self.clientAd.start();
 }
 
