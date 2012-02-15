@@ -1,6 +1,6 @@
-var mdns = require('mdns'),
-    net = require('net'),
-    url = require('url');
+var mdns    = require('mdns'),
+    net     = require('net'),
+    growler = require('growler');
 
 var Buzz = function () {
   var self = this;
@@ -10,6 +10,12 @@ var Buzz = function () {
   this.refreshClients();
   this.monitorClients();
   this.setupServer();
+
+  this.growler = new growler.GrowlApplication('buzz'); 
+  this.growler.setNotifications({
+    'message': {}
+  });
+  this.growler.register();
 
   var args = process.argv.splice(2);
 
@@ -128,6 +134,12 @@ Buzz.prototype.setupServer = function () {
         var messageSplit = message.split('////');
         console.log(messageSplit[0]);
         console.log(messageSplit[1]);
+        var from = messageSplit[0];
+        var note = messageSplit[1];
+        self.growler.sendNotification('message', {
+          title: 'buzz from ' + from,
+          text: note
+        });
       }
     });
   });

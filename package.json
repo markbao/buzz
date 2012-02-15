@@ -2,7 +2,8 @@
   "name": "bell",
   "version": "1.0.0",
   "dependencies": {
-    "mdns": "*"
+    "mdns": "*",
+    "growler": "*"
   },
   "devDependencies": {},
   "engines": {
