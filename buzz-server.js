@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 var mdns    = require('mdns'),
     net     = require('net'),
     growler = require('growler');
@@ -149,3 +150,4 @@ Buzz.prototype.setupServer = function () {
 
 var buzz = new Buzz();
 
+process.on('uncaughtException', console.log);
