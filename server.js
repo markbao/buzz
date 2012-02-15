@@ -56,8 +56,14 @@ Buzz.prototype.monitorClients = function () {
   });
 
   self.browser.on('serviceDown', function (cli) {
-    console.log('down');
-    console.log(cli);
+    console.log('down: ' + cli.name);
+
+    // search for name
+    for (var ip in self.clients) {
+      if (self.clients[ip].name == cli.name) {
+        delete self.clients[ip];
+      }
+    };
   });
 
   self.browser.start();
