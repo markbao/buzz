@@ -13,6 +13,10 @@
   "contributors": [
     "Mark Bao <mark@markbao.com> (http://github.com/markbao)"
   ],
+  "bin": {
+    "buzz": "buzz.js",
+    "buzz-server": "buzz-server.js"
+  },
   "maintainers": [
     "Mark Bao <mark@markbao.com> (http://github.com/markbao)"
   ],
