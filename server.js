@@ -40,6 +40,7 @@ Buzz.prototype.monitorClients = function () {
   self.browser = mdns.createBrowser(mdns.tcp('http'));
 
   self.browser.on('serviceUp', function(cli) {
+    console.log(cli);
     if (cli.port == 7331) {
       if (!self.clients[cli.addresses[0]]) {
         console.log('up: ' + cli.addresses[0]);
