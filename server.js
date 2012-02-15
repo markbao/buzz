@@ -51,6 +51,7 @@ Buzz.prototype.monitorClients = function () {
         tempClient.ip = cli.addresses[0];
         tempClient.host = cli.host;
       } else {
+        console.log('went up, but already discovered');
         self.clients[cli.addresses[0]].name = cli.name;
       }
     }
