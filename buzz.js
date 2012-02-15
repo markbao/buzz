@@ -28,7 +28,7 @@ switch (command) {
     break;
   case 'start':
     // start the buzz server!
-    child_process.spawn('nohup buzz-server ' + message + ' &');
+    child_process.exec('nohup buzz-server ' + message + ' &');
     break;
   default:
     // send a message! yay!
