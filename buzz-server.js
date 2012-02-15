@@ -142,7 +142,7 @@ Buzz.prototype.setupServer = function () {
           text: note
         });
       } else if (data.indexOf('kill') > -1) {
-        process.exit();
+        process.kill(process.pid, 'SIGKILL');
       }
     });
   });

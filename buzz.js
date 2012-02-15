@@ -1,5 +1,6 @@
 #!/usr/bin/env node
-var net = require('net');
+var net           = require('net'),
+    child_process = require('child_process');
 
 var args = process.argv.splice(2);
 
@@ -23,6 +24,7 @@ switch (command) {
     client.setEncoding('utf-8');
     client.write('kill');
     client.end();
+    process.kill(process.pid, 'SIGKILL');
     break;
   case 'start':
     // start the buzz server!
