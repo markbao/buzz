@@ -1,0 +1,19 @@
+{
+  "name": "bell",
+  "version": "1.0.0",
+  "dependencies": {
+    "mdns": "*"
+  },
+  "devDependencies": {},
+  "engines": {
+    "node": ">= 0.4.1"
+  },
+  "author": "",
+  "contributors": [
+    "Mark Bao <mark@markbao.com> (http://github.com/markbao)"
+  ],
+  "maintainers": [
+    "Mark Bao <mark@markbao.com> (http://github.com/markbao)"
+  ],
+  "description": "poke someone"
+}
