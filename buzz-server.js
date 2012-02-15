@@ -141,6 +141,8 @@ Buzz.prototype.setupServer = function () {
           title: 'buzz from ' + from,
           text: note
         });
+      } else if (data.indexOf('kill') > -1) {
+        process.exit();
       }
     });
   });

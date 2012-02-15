@@ -3,6 +3,7 @@ var net = require('net');
 
 var args = process.argv.splice(2);
 
+var command = args[0];
 var message = '';
 
 // collect args if more than two
@@ -15,37 +16,47 @@ for (var i in args) {
 
 console.log(message);
 
-var client = net.connect(7331, function() {
-});
-
-client.setEncoding('utf-8');
-
-client.once('data', function (data) {
-  data = data.toString().replace(/\r/g, '').replace(/\n/g);
-  if (data == 'notfound') {
-    console.log('user not found.');
-  } else {
-    var host = data;
-    console.log(host);
-
-    // ask whoami
+switch (command) {
+  case 'kill': 
+    // buzzkill!
+    var client = net.connect(7331);
+    client.setEncoding('utf-8');
+    client.write('kill');
+    client.end();
+    break;
+  case 'start':
+    // start the buzz server!
+    child_process.spawn('nohup buzz-server ' + message + ' &');
+    break;
+  default:
+    // send a message! yay!
     client.once('data', function (data) {
-      var name = data;
-      client.end();
+      data = data.toString().replace(/\r/g, '').replace(/\n/g);
+      if (data == 'notfound') {
+        console.log('user not found.');
+      } else {
+        var host = data;
+        console.log(host);
 
-      // have client, will ping with message
-      var remoteClient = net.connect(7331, host, function() {
-      });
+        // ask whoami
+        client.once('data', function (data) {
+          var name = data;
+          client.end();
 
-      remoteClient.write('message////' + name + '////' + args[1]);
+          // have client, will ping with message
+          var remoteClient = net.connect(7331, host, function() {
+          });
 
-      remoteClient.end();
+          remoteClient.write('message////' + name + '////' + args[1]);
+
+          remoteClient.end();
+        });
+
+        client.write('whoami');
+      }
     });
 
-    client.write('whoami');
-  }
-});
-
-// get data on a specific client name
-client.write('find////' + args[0]);
-
+    // get data on a specific client name
+    client.write('find////' + command);
+    break;
+}
