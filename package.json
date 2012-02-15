@@ -1,5 +1,5 @@
 {
-  "name": "bell",
+  "name": "buzzin",
   "version": "1.0.0",
   "dependencies": {
     "mdns": "*",
@@ -7,7 +7,7 @@
   },
   "devDependencies": {},
   "engines": {
-    "node": ">= 0.4.1"
+    "node": ">= 0.6.0"
   },
   "author": "",
   "contributors": [
@@ -16,5 +16,5 @@
   "maintainers": [
     "Mark Bao <mark@markbao.com> (http://github.com/markbao)"
   ],
-  "description": "poke someone"
+  "description": "buzz coworkers"
 }
