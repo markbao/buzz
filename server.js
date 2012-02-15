@@ -1,7 +1,23 @@
-var mdns = require('mdns');
+var mdns = require('mdns'),
+    net = require('net'),
+    url = require('url');
 
 var Buzz = function () {
+  var self = this;
+
   this.clients = {};
+
+  this.refreshClients();
+  this.monitorClients();
+  this.setupServer();
+
+  var args = process.argv.splice(2);
+
+  this.name = args[0];
+
+  this.broadcastClient(args[0]);
+
+//  setInterval(function(){console.log(self.clients)}, 1000);
 };
 
 Buzz.prototype.refreshClients = function () {
@@ -77,13 +93,47 @@ Buzz.prototype.broadcastClient = function (name) {
   self.clientAd.start();
 }
 
+Buzz.prototype.findClient = function (name) {
+  var self = this;
+  for (var ip in self.clients) {
+    if (self.clients[ip].name == name) {
+      return ip;
+      break;
+    }
+  }
+}
+
+Buzz.prototype.setupServer = function () {
+/*  http.createServer(function (req, res) {
+    var req.urlParts = 
+  }).listen(7331);*/
+  var self = this;
+
+  self.server = net.createServer(function (socket) {
+    console.log('TCP - connection');
+    socket.setEncoding('utf-8');
+
+    socket.on('data', function (data) {
+      data = data.toString().replace(/\r/g, '').replace(/\n/g, '');
+      if (data == 'exit') {
+        socket.end('goodbye!\n\n');
+      } else if (data.indexOf('whoami') > -1) {
+        socket.write(self.name);
+      } else if (data.indexOf('find////') > -1) {
+        // find client request
+        socket.write(self.findClient(data.replace('find////','')));
+      } else if (data.indexOf('message////') > -1) {
+        // message to deliver
+        var message = data.replace('message////','');
+        var messageSplit = message.split('////');
+        console.log(messageSplit[0]);
+        console.log(messageSplit[1]);
+      }
+    });
+  });
+
+  self.server.listen(7331);
+}
+
 var buzz = new Buzz();
 
-buzz.refreshClients();
-buzz.monitorClients();
-
-var args = process.argv.splice(2);
-
-buzz.broadcastClient(args[0]);
-
-setInterval(function(){console.log(buzz.clients)}, 1000);
