@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "dependencies": {
     "mdns": "*",
-    "growler": "*"
+    "growler": ">= 0.0.1"
   },
   "devDependencies": {},
   "engines": {
