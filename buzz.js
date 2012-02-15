@@ -32,6 +32,8 @@ switch (command) {
     break;
   default:
     // send a message! yay!
+    var client = net.connect(7331);
+    client.setEncoding('utf-8');
     client.once('data', function (data) {
       data = data.toString().replace(/\r/g, '').replace(/\n/g);
       if (data == 'notfound') {
