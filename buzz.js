@@ -1,9 +1,8 @@
 #!/usr/bin/env node
-var net           = require('net'),
-    child_process = require('child_process');
 
+var net = require('net');
+var child_process = require('child_process');
 var args = process.argv.splice(2);
-
 var command = args[0];
 var message = '';
 
@@ -20,7 +19,7 @@ console.log(message);
 switch (command) {
   case 'kill': 
     // buzzkill!
-    var client = net.connect(7331);
+    var client = net.createConnection(7331);
     client.setEncoding('utf-8');
     client.write('kill');
     client.end();
@@ -32,7 +31,7 @@ switch (command) {
     break;
   default:
     // send a message! yay!
-    var client = net.connect(7331);
+    var client = net.createConnection(7331);
     client.setEncoding('utf-8');
     client.once('data', function (data) {
       data = data.toString().replace(/\r/g, '').replace(/\n/g);
@@ -48,7 +47,7 @@ switch (command) {
           client.end();
 
           // have client, will ping with message
-          var remoteClient = net.connect(7331, host, function() {
+          var remoteClient = net.createConnection(7331, host, function() {
           });
 
           remoteClient.write('message////' + name + '////' + args[1]);
