@@ -85,3 +85,5 @@ buzz.monitorClients();
 var args = process.argv.splice(2);
 
 buzz.broadcastClient(args[0]);
+
+setTimeout(function(){console.log(buzz.clients)}, 1000);
