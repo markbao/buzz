@@ -3,6 +3,18 @@ var net = require('net');
 
 var args = process.argv.splice(2);
 
+var message = '';
+
+// collect args if more than two
+for (var i in args) {
+  if (i >= 1) {
+    if (message != '') message += ' ';
+    message += args[i];
+  }
+}
+
+console.log(message);
+
 var client = net.connect(7331, function() {
 });
 
